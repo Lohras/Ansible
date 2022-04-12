@@ -1,0 +1,61 @@
+02:35 PM 30 March 2022
+
+TASKS- main.xml [ cd /etc/ansible/roles/tom_cat/tasks/main.yml] 
+
+---
+# tasks file for tom_role
+- name: update
+  apt:
+    update_cache: yes
+    #ignore_error: yes
+- name: Create tomcat user
+  user: 
+    name: tomcat
+- name: Create tomcat group
+  group:
+    name: tomcat
+- name: install Java
+  apt: 
+    name: default-jdk
+    state: latest
+  become: yes
+- name: create a tomcat directory
+  file: 
+    path: /opt/tomcat10
+    owner: tomcat
+    group: tomcat
+    mode: 0755
+- name: download and unarchive tomcat10
+  unarchive:
+    src: https://dlcdn.apache.org/tomcat/tomcat-10/v10.0.18/bin/apache-tomcat-10.0.18.tar.gz 
+    dest: /opt/tomcat10
+    remote_src: yes
+    extra_opts: [--strip-components=1]
+- name: Change ownership of tomcat directory
+  file:
+    path: /opt/tomcat10
+    owner: tomcat
+    group: tomcat
+    mode: "u+rwx,g+rx,o=rx"
+    recurse: yes
+    state: directory
+- name: Changing port
+  template:
+    src: templates/server.j2
+    dest: /opt/tomcat10/conf/server.xml  
+- name: creating service for apache
+  file:
+    path: /etc/systemd/system/tomcat.service
+    state: touch
+    mode: "u+rwx,g-rwx,o-x" 
+- name: download foo.conf
+  get_url:
+    url: https://raw.githubusercontent.com/aftab70/Apache_Tomcat/master/tomcat_services 
+    dest: /etc/systemd/system/tomcat.service
+- name: daemon reload
+  command: systemctl daemon-reload
+- name: start apache
+  service: name=tomcat state=started 
+  
+  
+  

@@ -1,0 +1,13 @@
+02:51 PM 30 March 2022
+
+To cal the roles to final execution
+
+cd /etc/ansible/roles/tomcat.yml : 
+
+---
+- hosts: 172.31.81.50
+  roles: 
+    - tom_role
+  vars: 
+    tomcat_port: 8095
+  become: yes

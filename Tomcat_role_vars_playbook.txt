@@ -1,0 +1,7 @@
+02:41 PM 30 March 2022
+
+Vars- main.xml [ cd /etc/ansible/roles/tom_cat/vars/main.yml] 
+
+---
+# vars file for tom_role
+tomcat_port: 8095
