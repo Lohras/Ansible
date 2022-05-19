@@ -1,3 +1,8 @@
 #To spin up an Ec2 instance, prequisites _BOTO/IAM role
 https://www.coachdevops.com/2021/07/ansible-playbook-for-provisioning-new.html
 
+# ansible project -latest package repository to install ansible
+https://docs.ansible.com/ansible/2.9/installation_guide/intro_installation.html#installing-ansible-on-rhel-centos-or-fedora
+
+# Packages for ansible RHEL
+https://docs.fedoraproject.org/en-US/epel/
